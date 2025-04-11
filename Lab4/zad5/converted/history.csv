@@ -1,0 +1,4 @@
+date&time,original_path,output_format,output_path,used_programme
+03.04.2025 18:22:15,files\image1.png,mp3,converted\20250403182214-image1.png.mp3,ImageMagcik
+03.04.2025 18:22:15,files\video1.mp4,mp3,converted\20250403182215-video1.mp4.mp3,FFmpeg
+03.04.2025 18:22:19,files\image1.png,jpg,converted\20250403182219-image1.png.jpg,ImageMagcik
