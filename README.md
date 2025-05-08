@@ -9,5 +9,6 @@ Each lab class dir contains an implementation of tasks about the given topic.
 * Lab4 - environment variables, command line arguments and file processing
 * Lab5 - regular expressions and command line interfaces
 * Lab6 - object oriented programming in python
+* Lab7 - functional programming in python
 
 _Lab[number] is a one-week homework assignment._
