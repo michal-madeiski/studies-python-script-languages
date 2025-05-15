@@ -1,5 +1,5 @@
 import sys
-import utils
+import Lab3.utils as utils
 from datetime import datetime
 
 def read_log(file):
@@ -27,6 +27,9 @@ def read_log(file):
             #print(f"Error({e}) during reading log in line: {line}", file=sys.stderr)
             continue
     return logs
+
+def filter_logs(logs, date_f, date_t):
+    return [log for log in logs if date_f <= log[utils.entry_idx["ts"]].date() <= date_t]
 
 if __name__ == '__main__':
     print(read_log(sys.stdin)[:1])
