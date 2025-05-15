@@ -1,5 +1,6 @@
 import sys
 from zad2a import read_log
+
 def entry_to_dict(entry):
     dict_entry = {
         'ts': entry[0],

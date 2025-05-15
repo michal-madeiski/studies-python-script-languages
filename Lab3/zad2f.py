@@ -11,5 +11,6 @@ def get_entries_by_extension(log_list, ext):
         if uri.endswith(f".{ext}"):
             ret_list.append(log)
     return ret_list
+
 if __name__ == "__main__":
     print(get_entries_by_extension(read_log(sys.stdin), "java"))

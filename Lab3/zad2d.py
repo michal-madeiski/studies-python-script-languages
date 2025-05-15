@@ -15,5 +15,6 @@ def get_entries_by_code(log_list, code):
     except ValueError as e:
         print("Filtration by status code failed...")
         return e
+
 if __name__ == "__main__":
     print(get_entries_by_code(read_log(sys.stdin)[:3], "404"))

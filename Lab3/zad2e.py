@@ -21,5 +21,6 @@ def get_failed_reads(log_list, num_of_lists):
     except ValueError as e:
         print("Filtration by status code failed...")
         return e
+
 if __name__ == "__main__":
     print(get_failed_reads(read_log(sys.stdin)[:3], 1))
