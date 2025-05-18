@@ -93,14 +93,14 @@ class LogBrowser(QWidget):
         up_layout.addLayout(nav_layout)
         # up_layout
 
-        # up_layout
+        # down_layout
         down_layout.addRow("Remote host:", self.remote_host)
         down_layout.addRow("Date:", self.date)
         down_layout.addRow("Time:", self.time)
         down_layout.addRow("Method:", self.method)
         down_layout.addRow("Status code:", self.status_code)
         down_layout.addRow("Resource:", self.uri)
-        # up_layout
+        # down_layout
 
         # main_layout
         main_layout.addLayout(up_layout, 4)
