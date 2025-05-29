@@ -4,8 +4,8 @@ from PySide6.QtWidgets import (QApplication, QPushButton, QLineEdit, QLabel, QVB
                                QDateEdit, QFormLayout, QFileDialog, QListWidget)
 from PySide6.QtCore import QDate
 from PySide6.QtGui import QIcon
-from Lab3.zad2a import read_log, filter_logs
-from Lab3 import utils
+from Lab03.zad2a import read_log, filter_logs
+from Lab03 import utils
 from style import style
 
 os.environ["QT_QPA_PLATFORM_PLUGIN_PATH"] = os.path.join(sys.prefix, "Lib", "site-packages", "PySide6", "plugins", "platforms")

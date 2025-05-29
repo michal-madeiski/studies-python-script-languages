@@ -1,5 +1,5 @@
 import sys
-import Lab3.utils as utils
+import Lab03.utils as utils
 from datetime import datetime
 
 def read_log(file):

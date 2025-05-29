@@ -137,7 +137,7 @@ class Measurements:
 
 if __name__ == "__main__":
     #zad7
-    measurements = Measurements("../Lab5/measurements/")
+    measurements = Measurements("../Lab05/measurements/")
 
     get_by_param = measurements.get_by_parameter("As(PM10)")
     get_by_station = measurements.get_by_station("DsOsieczow21")
