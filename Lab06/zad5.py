@@ -1,7 +1,7 @@
 import os
 import pandas as pd #type: ignore
 from typing import Dict, Any
-from zad4 import *
+from Lab06.zad4 import *
 
 class Measurements:
     def __init__(self, dir_path: str) -> None:

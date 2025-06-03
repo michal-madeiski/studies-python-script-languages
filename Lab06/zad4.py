@@ -1,6 +1,6 @@
 import abc
 from typing import List, Optional, Literal
-from zad2 import TimeSeries
+from Lab06.zad2 import TimeSeries
 
 class SeriesValidator(abc.ABC):
     @abc.abstractmethod
