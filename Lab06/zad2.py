@@ -1,10 +1,22 @@
 import datetime as dt
 import numpy as np
+from typing import Optional, Union, List, Tuple
 
 DATE_FORMAT = "%m/%d/%y %H:%M"
 
 class TimeSeries:
-    def __init__(self, idx_name, station_code, avrg_time, dates_list, values_list, unit):
+    dates_list: List[dt.datetime]
+    values_list: List[Optional[float]]
+
+    def __init__(
+            self,
+            idx_name: str,
+            station_code: str,
+            avrg_time: str,
+            dates_list: List[str],
+            values_list: List[Optional[float]],
+            unit: str
+    ) -> None:
         self.idx_name = idx_name
         self.station_code = station_code
         self.avrg_time = avrg_time
@@ -12,24 +24,31 @@ class TimeSeries:
         self.values_list = values_list
         self.unit = unit
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"{self.idx_name}_{self.station_code}_{self.avrg_time}_{self.unit}: {list(zip(self.dates_list, self.values_list))}"
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"{self.station_code}_{self.idx_name}"
 
-    def __getitem__(self, key: int | slice | dt.date | dt.datetime):
+    def __getitem__(self, key: int | slice | dt.date | dt.datetime) -> Union[
+        Tuple[dt.datetime, Optional[float]],
+        List[Tuple[dt.datetime, Optional[float]]],
+        Optional[float],
+        List[Optional[float]]
+    ]:
         if isinstance(key, (int, slice)):
-            dates = self.dates_list[key]
-            values = self.values_list[key]
             if isinstance(key, slice):
+                dates: List[dt.datetime] = self.dates_list[key]
+                values: List[Optional[float]] = self.values_list[key]
                 return list(zip(dates, values))
             elif isinstance(key, int):
-                return dates, values
+                date: dt.datetime = self.dates_list[key]
+                value: Optional[float] = self.values_list[key]
+                return (date, value)
 
         elif isinstance(key, (dt.date, dt.datetime)):
             values = self.values_list
-            ret_values = []
+            ret_values: List[Optional[float]] = []
 
             for i, d in enumerate(self.dates_list):
                 if isinstance(key, dt.datetime):
@@ -49,26 +68,24 @@ class TimeSeries:
 
     #zad3
     @property
-    def mean(self):
+    def mean(self) -> Optional[float]:
         no_none_values = [v for v in self.values_list if v is not None]
         if self.values_list:
-            return np.mean(no_none_values)
-        else:
-            return None
+            return float(np.mean(no_none_values))
+        return None
 
     @property
-    def stddev(self):
+    def stddev(self) -> Optional[float]:
         no_none_values = [v for v in self.values_list if v is not None]
         if self.values_list:
-            return np.std(no_none_values)
-        else:
-            return None
+            return float(np.std(no_none_values))
+        return None
     #zad3
 
 
 if __name__ == "__main__":
     dates = ["01/01/23 12:00", "01/02/23 12:00", "01/03/23 12:00"]
-    values = [1.57, 5.93, 5.93]
+    values: List[Optional[float]] = [1.57, 5.93, 5.93]
     ts = TimeSeries("As(PM10)", "DsOsieczow21", "24g", dates, values, "ng/m3")
 
     print(f"ts: {ts}")

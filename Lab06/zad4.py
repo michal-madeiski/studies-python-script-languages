@@ -1,24 +1,25 @@
 import abc
+from typing import List, Optional, Literal
 from zad2 import TimeSeries
 
 class SeriesValidator(abc.ABC):
     @abc.abstractmethod
-    def analyze(self, series: TimeSeries):
+    def analyze(self, series: TimeSeries) -> List[str]:
         pass
 
 class OutlierDetector(SeriesValidator):
-    def __init__(self, k):
+    def __init__(self, k: float) -> None:
         self.k = k
 
-    def analyze(self, series: TimeSeries):
-        anomalies = []
-        mean = series.mean
-        stddev = series.stddev
+    def analyze(self, series: TimeSeries) -> List[str]:
+        anomalies: List[str] = []
+        mean: Optional[float] = series.mean
+        stddev: Optional[float] = series.stddev
 
         if mean is None or stddev is None:
             return anomalies
 
-        no_none_values = [v for v in series.values_list if v is not None]
+        no_none_values: List[float] = [v for v in series.values_list if v is not None]
         for i, v in enumerate(no_none_values):
             if abs(v - mean) > self.k * stddev:
                 anomalies.append(f"Outlier ({self.k}*stddev from mean) detected at index {i}: {v}")
@@ -26,10 +27,10 @@ class OutlierDetector(SeriesValidator):
         return anomalies
 
 class ZeroSpikeDetector(SeriesValidator):
-    def analyze(self, series: TimeSeries):
-        anomalies = []
-        values = series.values_list
-        counter = 0
+    def analyze(self, series: TimeSeries) -> List[str]:
+        anomalies: List[str] = []
+        values: List[Optional[float]] = series.values_list
+        counter: int = 0
 
         for i, v in enumerate(values):
             if v is None or v == 0:
@@ -42,12 +43,12 @@ class ZeroSpikeDetector(SeriesValidator):
         return anomalies
 
 class ThresholdDetector(SeriesValidator):
-    def __init__(self, threshold):
+    def __init__(self, threshold: float) -> None:
         self.threshold = threshold
 
-    def analyze(self, series: TimeSeries):
-        anomalies = []
-        values = [v for v in series.values_list if v is not None]
+    def analyze(self, series: TimeSeries) -> List[str]:
+        anomalies: List[str] = []
+        values: List[float] = [v for v in series.values_list if v is not None]
 
         for i, v in enumerate(values):
             if v > self.threshold:
@@ -56,14 +57,14 @@ class ThresholdDetector(SeriesValidator):
         return anomalies
 
 class CompositeValidator(SeriesValidator):
-    def __init__(self, validators, mode: str = "OR"):
+    def __init__(self, validators: List[SeriesValidator], mode: Literal["OR", "AND"] = "OR") -> None:
         self.validators = validators
         self.mode = mode
 
-    def analyze(self, series: TimeSeries):
-        all_anomalies = []
+    def analyze(self, series: TimeSeries) -> List[str]:
+        all_anomalies: List[List[str]] = []
         for validator in self.validators:
-            anomalies = validator.analyze(series)
+            anomalies: List[str] = validator.analyze(series)
             if anomalies:
                 all_anomalies.append(anomalies)
 
@@ -82,7 +83,7 @@ class CompositeValidator(SeriesValidator):
 if __name__ == "__main__":
     dates = ["01/01/23 12:00", "01/02/23 12:00", "01/03/23 12:00"]
     #dates = ["01/01/23 12:00", "01/02/23 12:00", "01/03/23 12:00", "01/04/23 12:00", "01/05/23 12:00", "01/06/23 12:00"]
-    values = [1.57, 5.93, 5.93]
+    values: List[Optional[float]] = [1.57, 5.93, 5.93]
     #values = [1.57, 5.93, 5.93, None, 0, 0.00]
     ts = TimeSeries("As(PM10)", "DsOsieczow21", "24g", dates, values, "ng/m3")
 
