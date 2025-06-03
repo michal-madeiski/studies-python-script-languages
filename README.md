@@ -11,6 +11,7 @@ Each lab class dir contains an implementation of tasks about the given topic.
 * Lab06 - object-oriented programming in python
 * Lab07 - functional programming in python
 * Lab08 - graphical user interface in python
+* Lab09 - unit tests using pytest
 * Lab10 - object-relational mapping in python
 
 _Lab[number] is a one-week homework assignment._
